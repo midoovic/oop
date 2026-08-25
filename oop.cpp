@@ -54,8 +54,6 @@ int main()
   if(n == 1) s = "add" , cout << "Amount you want to add : ", cin >> balance;
   else if(n == 2) s = "withdraw", cout << "Amount you want to take : ", cin >> balance;
   else if(n == 3) s = "show current balance";
-  bank.newbalance(s , balance);
-  cout << (n == 2 && bank.newbalance(s , balance) == 0 ? "your balance is not enough" : "") << el;
   cout << "Your balance is : " << bank.newbalance(s , balance) << el;
   return 0;
 }
