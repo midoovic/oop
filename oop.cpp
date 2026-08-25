@@ -2,28 +2,60 @@
 using namespace std;
 #define ll long long
 #define el "\n"
-class rectangle
+class BankAccount
 {
  private:
-  int l , w;
+  string name , id;
+  int accNum;
+  ll balance = 0;
  public:
-  void setval(int n , int m)
+  void setval(string s , string i, int a)
   {
-    l = n , w = m;
+    name = s , id = i , accNum = a ;
   }
-  int area()
+  ll newbalance(string o , ll amount)
   {
-    return l * w;
+    if (o == "add")
+    {
+      balance += amount;
+      return balance;
+    }
+  
+   else if(o == "withdraw")
+   {
+    if(balance >= amount)
+    {
+      balance -= amount;
+      return balance;
+    }
+    else
+    {
+      return balance;
+    }
+   }
+   else if(o == "show current balance")
+   {
+     return balance;
+   }
   }
-  void print()
-  {cout << area() << el;}
 };
 int main()
 {
-  int n , m; cin >> n >> m;
-  rectangle rec;
-  rec.setval(n , m);
-  rec.area();
-  rec.print();
+  BankAccount bank;
+  string name , id ;  int acc ;
+  cout << "Name "; cin >> name;
+  cout << "Id "; cin >> id;
+  cout << "account number "; cin >> acc;
+  bank.setval(name , id , acc );
+  string s ; ll balance =  0;
+  cout << "Operation:" << el;
+  cout <<"1. Add" << el << "2. Withdraw" << el <<"3. show current balance" << el;
+  int n; cin >> n;
+  if(n == 1) s = "add" , cout << "Amount you want to add : ", cin >> balance;
+  else if(n == 2) s = "withdraw", cout << "Amount you want to take : ", cin >> balance;
+  else if(n == 3) s = "show current balance";
+  bank.newbalance(s , balance);
+  cout << (n == 2 && bank.newbalance(s , balance) == 0 ? "your balance is not enough" : "") << el;
+  cout << "Your balance is : " << bank.newbalance(s , balance) << el;
   return 0;
 }
