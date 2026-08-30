@@ -7,11 +7,13 @@ class BankAccount
  private:
   string name , id;
   int accNum;
-  ll balance = 0;
+  ll balance = 750;
  public:
-  void setval(string s , string i, int a)
+  void setval()
   {
-    name = s , id = i , accNum = a ;
+    cout << "Name "; cin >> name;
+    cout << "Id "; cin >> id;
+    cout << "account number "; cin >> accNum;
   }
   ll newbalance(string o , ll amount)
   {
@@ -30,7 +32,7 @@ class BankAccount
     }
     else
     {
-      return balance;
+      return -1;
     }
    }
    else if(o == "show current balance")
@@ -42,11 +44,7 @@ class BankAccount
 int main()
 {
   BankAccount bank;
-  string name , id ;  int acc ;
-  cout << "Name "; cin >> name;
-  cout << "Id "; cin >> id;
-  cout << "account number "; cin >> acc;
-  bank.setval(name , id , acc );
+  bank.setval();      // taking input directly int function 
   string s ; ll balance =  0;
   cout << "Operation:" << el;
   cout <<"1. Add" << el << "2. Withdraw" << el <<"3. show current balance" << el;
@@ -55,5 +53,6 @@ int main()
   else if(n == 2) s = "withdraw", cout << "Amount you want to take : ", cin >> balance;
   else if(n == 3) s = "show current balance";
   cout << "Your balance is : " << bank.newbalance(s , balance) << el;
+  if(bank.newbalance(s , balance) == -1) cout << "not enough";
   return 0;
 }
