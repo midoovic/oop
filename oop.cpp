@@ -9,6 +9,12 @@ class BankAccount
   int accNum;
   ll balance = 750;
  public:
+  BankAccount() //defult constructor
+  {
+    cout << "Name "; cin >> name;
+    cout << "Id "; cin >> id;
+    cout << "account number "; cin >> accNum;
+  }
   void setval()
   {
     cout << "Name "; cin >> name;
@@ -43,8 +49,8 @@ class BankAccount
 };
 int main()
 {
-  BankAccount bank;
-  bank.setval();      // taking input directly int function 
+  BankAccount bank; // ==> taking inputs directly by construstor
+  //bank.setval();      // taking input directly in function 
   string s ; ll balance =  0;
   cout << "Operation:" << el;
   cout <<"1. Add" << el << "2. Withdraw" << el <<"3. show current balance" << el;
