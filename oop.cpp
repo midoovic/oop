@@ -1,64 +1,68 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 #define el "\n"
-class BankAccount
+#define sp " "
+#define ll long long
+#define allr(v) v.rbegin() , v.rend()
+class Student 
 {
- private:
-  string name , id;
-  int accNum;
-  ll balance = 750;
- public:
-  BankAccount() //defult constructor
-  {
-    cout << "Name "; cin >> name;
-    cout << "Id "; cin >> id;
-    cout << "account number "; cin >> accNum;
-  }
-  void setval()
-  {
-    cout << "Name "; cin >> name;
-    cout << "Id "; cin >> id;
-    cout << "account number "; cin >> accNum;
-  }
-  ll newbalance(string o , ll amount)
-  {
-    if (o == "add")
-    {
-      balance += amount;
-      return balance;
-    }
-  
-   else if(o == "withdraw")
-   {
-    if(balance >= amount)
-    {
-      balance -= amount;
-      return balance;
-    }
-    else
-    {
-      return -1;
-    }
-   }
-   else if(o == "show current balance")
-   {
-     return balance;
-   }
-  }
+   private:
+     string name;
+     int mark;
+   public:
+     Student() //defult constructor
+     {
+        cout << "Enter the name : " << el;
+        cin >> name;
+        cout << "Enter mark : "<<el;
+        cin >> mark;
+     }
+     Student(string n , int m) // parametrize constructor
+     {
+       name = n;
+       mark = m;
+     }
+     friend int sum(Student a , Student b , Student c); //friend function
+     void checkMarks(Student a , Student b , Student c); //prototype function
+     void out() // defult function
+     {
+       cout << name << sp << mark << el;
+     }
 };
+
+int sum(Student a , Student b , Student c)  //frend function's body
+{
+   return a.mark + b.mark + c.mark;
+}
+void Student :: checkMarks(Student a , Student b , Student c) //prototype function's body
+{
+   string win;
+   vector<int> arr(3);
+   arr[0] = a.mark;
+   arr[1] = b.mark;
+   arr[2] = c.mark;
+   if(a.mark == b.mark && a.mark == c.mark)
+   {
+      cout << "all marks are equal" << el;
+      return;
+   }
+   sort(allr(arr));
+   if(arr[0] == a.mark) win = a.name;
+   else if(arr[0] == b.mark) win = b.name;
+   else if(arr[0] == c.mark) win = c.name;
+   cout << "congratulations " << win << el;
+}
+
 int main()
 {
-  BankAccount bank; // ==> taking inputs directly by construstor
-  //bank.setval();      // taking input directly in function 
-  string s ; ll balance =  0;
-  cout << "Operation:" << el;
-  cout <<"1. Add" << el << "2. Withdraw" << el <<"3. show current balance" << el;
-  int n; cin >> n;
-  if(n == 1) s = "add" , cout << "Amount you want to add : ", cin >> balance;
-  else if(n == 2) s = "withdraw", cout << "Amount you want to take : ", cin >> balance;
-  else if(n == 3) s = "show current balance";
-  cout << "Your balance is : " << bank.newbalance(s , balance) << el;
-  if(bank.newbalance(s , balance) == -1) cout << "not enough";
-  return 0;
+   Student ahmed("Ahmed" , 100);
+   Student ali("Ali" , 50);
+   Student nour("Nour" , 70);
+   cout << "sum of marks =" << sp << sum(ahmed , ali , nour) << el;
+   ahmed.checkMarks(ahmed , ali , nour);
+
+   Student s;
+   s.out();
+
+   return 0;
 }
