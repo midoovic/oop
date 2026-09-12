@@ -66,3 +66,84 @@ int main()
 
    return 0;
 }
+
+class Count
+{
+  private :
+   int value;
+  public:
+   Count() : value (5){}
+   //? function of type class
+   Count operator +(Count c2) // result = c1 + c2
+   {
+     Count res;
+     res.value = value + c2.value; // c1.val + c2.val
+     return res;
+   }
+   void out()
+   {
+     cout << value;
+   }
+};
+int main()
+{
+  Count c1 , c2 , result;
+  result = c1 + c2;
+  result.out();
+}
+
+/*
+// friend class
+class Student
+{
+  private:
+    string name , id;
+    int age , grade;
+  public:
+    Student()
+    {
+      cout << "name of student" << counter << "= ";
+      cin >> name;
+      cout << "age = ";
+      cin >> age;
+      cout << "grade of student"<<counter << "= ";
+      cin >> grade;
+      /*cout << "id = ";
+      cin >> id;
+      counter ++ ;
+    }
+    friend class Uni;
+    friend double averageGrades(Student arr[] , int size);
+};
+// array of object
+double averageGrades(Student arr[20] , int size)
+{
+  double avr = 0;
+  for(int i = 0; i < size ; i++)
+  {
+    avr += arr[i].grade;
+  }
+  return avr / size;
+}
+class Uni
+{
+  private:
+   string uni;
+  public:
+   Uni()
+   {
+     cout << "Uiversity : ";
+     cin.ignore();
+     getline(cin , uni);
+   }
+   void print (Student s)
+   {
+     cout << uni << el;
+     cout << s.name << el;
+     cout << s.age << el;
+     cout << s.id << el;
+     cout << s.grade << el;
+   }
+};
+
+*/
