@@ -10,22 +10,17 @@ class BankAccount
     int accountNo , balance;
     char accountType;
   public:
-    BankAccount()
+    BankAccount(string n , int aN, int b, char aT)
     {
-      cout << "  CREATE AN ACCOUNT " << el;
-      cout << "Enter Name: ";
-      cin >> name;
-      cout << "Enter account number: ";
-      cin >> accountNo;
-      cout << "Enter balnce: ";
-      cin >> balance;
-      cout << "Enter account type: " << sp;
-      cout << "Enter 's' for saving account  or 'c' for current account : ";
-      cin >> accountType;
+      name = n;
+      accountNo = aN;
+      balance = b;
+      accountType = aT;
     }  
     void changeinfo();
     void show();
     int outBalance();
+    int modifyBalance();
     int operator += (int x)
     {
       balance += x;
@@ -37,6 +32,30 @@ class BankAccount
       return balance;
     }   
 };
+int BankAccount :: modifyBalance()
+{
+  cout << "1.add " << sp << "2.withdraw"<<el;
+  int o; cin >> o;
+  int amount;
+  if(o == 1)
+  {
+    cout << "enter the ammount you want to add : ";
+    cin >> amount;
+    balance += amount;
+    cout << "Balance = " << balance << el;
+  }
+  else if(o == 2)
+  {
+    cout << "enter the ammount you want to withdraw : ";
+    cin >> amount;
+    if(balance < amount){cout << "Not enough" << el;}
+    else 
+    {
+      balance -= amount;
+      cout << "Balance = " << balance << el;
+    }
+  }
+}
 int BankAccount :: outBalance()
 {
  return balance;
@@ -84,34 +103,27 @@ void BankAccount :: show()
 
 int main()
 {
-  BankAccount ob;
+  string name;
+  int accountNo , balance;
+  char accountType;
+  cout << "  CREATE AN ACCOUNT " << el;
+  cout << "Enter Name: ";
+  cin >> name;
+  cout << "Enter account number: ";
+  cin >> accountNo;
+  cout << "Enter balnce: ";
+  cin >> balance;
+  cout << "Enter account type: " << sp;
+  cout << "Enter 's' for saving account  or 'c' for current account : ";
+  cin >> accountType;
+  BankAccount ob(name , accountNo , balance , accountType);
   cout << "1. modify balance" << el;
   cout << "2. account report" << el;
   cout << "3. change informations" << el;
   int n; cin >> n;
   if(n == 1)
   {
-    cout << "1.add " << sp << "2.withdraw"<<el;
-    int o; cin >> o;
-    int amount;
-    if(o == 1)
-    {
-      cout << "enter the ammount you want to add : ";
-      cin >> amount;
-      ob += (amount);
-      cout << "Balance = " << ob.outBalance() << el;
-    }
-    else if(o == 2)
-    {
-      cout << "enter the ammount you want to withdraw : ";
-      cin >> amount;
-      if(ob.outBalance() < amount){cout << "Not enough" << el;}
-      else 
-      {
-        ob -= (amount);
-        cout << "Balance = " << ob.outBalance() << el;
-      }
-    }
+    ob.modifyBalance();
   }
   else if(n == 2)
   {
