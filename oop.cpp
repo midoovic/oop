@@ -7,10 +7,11 @@ class BankAccount
 {
   private:
     string name;
-    int accountNo , balance;
+    int accountNo ;
+    double balance;
     char accountType;
   public:
-    BankAccount(string n , int aN, int b, char aT)
+    BankAccount(string n , int aN, double b, char aT)
     {
       name = n;
       accountNo = aN;
@@ -19,24 +20,33 @@ class BankAccount
     }  
     void changeinfo();
     void show();
-    int outBalance();
-    int modifyBalance();
-    int operator += (int x)
+    double outBalance();
+    double modifyBalance();
+    double operator += (int x)
     {
       balance += x;
       return balance;
     }  
-    int operator -= (int x)
+    void operator -= (int x)
     {
-      balance -= x;
-      return balance;
+      double bal = balance;
+      bal -= x;
+      if(bal < 0)
+      {
+        cout << "Not enough" << el;
+      }
+      else 
+      {
+        balance = bal;
+      }
+      cout << "Balance : " << balance <<el;
     }   
 };
-int BankAccount :: modifyBalance()
+double BankAccount :: modifyBalance()
 {
   cout << "1.add " << sp << "2.withdraw"<<el;
   int o; cin >> o;
-  int amount;
+  double amount;
   if(o == 1)
   {
     cout << "enter the ammount you want to add : ";
@@ -56,7 +66,7 @@ int BankAccount :: modifyBalance()
     }
   }
 }
-int BankAccount :: outBalance()
+double BankAccount :: outBalance()
 {
  return balance;
 }
@@ -104,7 +114,8 @@ void BankAccount :: show()
 int main()
 {
   string name;
-  int accountNo , balance;
+  int accountNo ; 
+  double balance;
   char accountType;
   cout << "  CREATE AN ACCOUNT " << el;
   cout << "Enter Name: ";
@@ -136,3 +147,4 @@ int main()
   }
   return 0;
 }
+
