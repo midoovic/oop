@@ -3,147 +3,124 @@ using namespace std;
 #define el "\n"
 #define sp " "
 #define ll long long
-#define allr(v) v.rbegin() , v.rend()
-class Student 
-{
-   private:
-     string name;
-     int mark;
-   public:
-     Student() //defult constructor
-     {
-        cout << "Enter the name : " << el;
-        cin >> name;
-        cout << "Enter mark : "<<el;
-        cin >> mark;
-     }
-     Student(string n , int m) // parametrize constructor
-     {
-       name = n;
-       mark = m;
-     }
-     friend int sum(Student a , Student b , Student c); //friend function
-     void checkMarks(Student a , Student b , Student c); //prototype function
-     void out() // defult function
-     {
-       cout << name << sp << mark << el;
-     }
-};
-
-int sum(Student a , Student b , Student c)  //frend function's body
-{
-   return a.mark + b.mark + c.mark;
-}
-void Student :: checkMarks(Student a , Student b , Student c) //prototype function's body
-{
-   string win;
-   vector<int> arr(3);
-   arr[0] = a.mark;
-   arr[1] = b.mark;
-   arr[2] = c.mark;
-   if(a.mark == b.mark && a.mark == c.mark)
-   {
-      cout << "all marks are equal" << el;
-      return;
-   }
-   sort(allr(arr));
-   if(arr[0] == a.mark) win = a.name;
-   else if(arr[0] == b.mark) win = b.name;
-   else if(arr[0] == c.mark) win = c.name;
-   cout << "congratulations " << win << el;
-}
-
-int main()
-{
-   Student ahmed("Ahmed" , 100);
-   Student ali("Ali" , 50);
-   Student nour("Nour" , 70);
-   cout << "sum of marks =" << sp << sum(ahmed , ali , nour) << el;
-   ahmed.checkMarks(ahmed , ali , nour);
-
-   Student s;
-   s.out();
-
-   return 0;
-}
-
-class Count
-{
-  private :
-   int value;
-  public:
-   Count() : value (5){}
-   //? function of type class
-   Count operator +(Count c2) // result = c1 + c2
-   {
-     Count res;
-     res.value = value + c2.value; // c1.val + c2.val
-     return res;
-   }
-   void out()
-   {
-     cout << value;
-   }
-};
-int main()
-{
-  Count c1 , c2 , result;
-  result = c1 + c2;
-  result.out();
-}
-
-/*
-// friend class
-class Student
+class BankAccount
 {
   private:
-    string name , id;
-    int age , grade;
+    string name;
+    int accountNo , balance;
+    char accountType;
   public:
-    Student()
+    BankAccount()
     {
-      cout << "name of student" << counter << "= ";
+      cout << "  CREATE AN ACCOUNT " << el;
+      cout << "Enter Name: ";
       cin >> name;
-      cout << "age = ";
-      cin >> age;
-      cout << "grade of student"<<counter << "= ";
-      cin >> grade;
-      /*cout << "id = ";
-      cin >> id;
-      counter ++ ;
-    }
-    friend class Uni;
-    friend double averageGrades(Student arr[] , int size);
+      cout << "Enter account number: ";
+      cin >> accountNo;
+      cout << "Enter balnce: ";
+      cin >> balance;
+      cout << "Enter account type: " << sp;
+      cout << "Enter 's' for saving account  or 'c' for current account : ";
+      cin >> accountType;
+    }  
+    void changeinfo();
+    void show();
+    int outBalance();
+    int operator += (int x)
+    {
+      balance += x;
+      return balance;
+    }  
+    int operator -= (int x)
+    {
+      balance -= x;
+      return balance;
+    }   
 };
-// array of object
-double averageGrades(Student arr[20] , int size)
+int BankAccount :: outBalance()
 {
-  double avr = 0;
-  for(int i = 0; i < size ; i++)
-  {
-    avr += arr[i].grade;
-  }
-  return avr / size;
+ return balance;
 }
-class Uni
+void BankAccount :: changeinfo()
 {
-  private:
-   string uni;
-  public:
-   Uni()
-   {
-     cout << "Uiversity : ";
-     cin.ignore();
-     getline(cin , uni);
-   }
-   void print (Student s)
-   {
-     cout << uni << el;
-     cout << s.name << el;
-     cout << s.age << el;
-     cout << s.id << el;
-     cout << s.grade << el;
-   }
-};
+  cout << "Which information you want to change:" << el;;
+  cout << "1. name " << sp << "2.account type " << sp << "3.both" << el;
+  int x; cin >> x;
+  if (x == 1)
+  {
+    string s;
+    cout << "Enter new name : ";
+    cin >> s;
+    name = s;
+  }
+  else if (x == 2)
+  {
+    char s;
+    cout << "Enter new type : "<<el;
+    cout << "Enter 's' for saving account  or 'c' for current account : ";
+    cin >> s;
+    accountType = s;
+  }
+  else if (x == 3)
+  {
+    string s;
+    cout << "Enter new name : ";
+    cin >> s;
+    name = s;
+    char c;
+    cout << "Enter new type : "<<el;
+    cout << "Enter 's' for saving account  or 'c' for current account : ";
+    cin >> c;
+    accountType = c;
+  }
+}
+void BankAccount :: show()
+{
+  cout << "Name : " << name << el;
+  cout << "Account number : " << accountNo << el;
+  cout << "Account type : " << accountType << el;
+  cout << "balance : " << balance << el;
+}
 
-*/
+int main()
+{
+  BankAccount ob;
+  cout << "1. modify balance" << el;
+  cout << "2. account report" << el;
+  cout << "3. change informations" << el;
+  int n; cin >> n;
+  if(n == 1)
+  {
+    cout << "1.add " << sp << "2.withdraw"<<el;
+    int o; cin >> o;
+    int amount;
+    if(o == 1)
+    {
+      cout << "enter the ammount you want to add : ";
+      cin >> amount;
+      ob += (amount);
+      cout << "Balance = " << ob.outBalance() << el;
+    }
+    else if(o == 2)
+    {
+      cout << "enter the ammount you want to withdraw : ";
+      cin >> amount;
+      if(ob.outBalance() < amount){cout << "Not enough" << el;}
+      else 
+      {
+        ob -= (amount);
+        cout << "Balance = " << ob.outBalance() << el;
+      }
+    }
+  }
+  else if(n == 2)
+  {
+    ob.show();
+  }
+  else if(n == 3)
+  {
+    ob.changeinfo(); 
+    ob.show();
+  }
+  return 0;
+}
